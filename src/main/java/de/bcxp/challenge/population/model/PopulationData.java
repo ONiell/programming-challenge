@@ -3,9 +3,15 @@ package de.bcxp.challenge.population.model;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
 import de.bcxp.challenge.cvs.CsvStringToIntConverter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PopulationData {
 
     @CsvBindByName(column = "Name")
@@ -32,3 +38,4 @@ public class PopulationData {
     @CsvBindByName(column = "MEPs")
     private Integer memberCountOfEuropeanParliament;
 }
+

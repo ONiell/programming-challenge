@@ -7,9 +7,11 @@ import java.util.List;
 
 public class PopulationMetrics {
 
-    public PopulationData getMaxPopulationDensity(final List<PopulationData> populationDataList){
+    public PopulationData getMaxPopulationDensity(final List<PopulationData> populationDataList) {
 
-         return populationDataList.stream()
+        return populationDataList.stream()
+                .filter(populationData -> populationData.getPopulation() != null)
+                .filter(populationData -> populationData.getAreaInSquareKM() != null)
                 .filter(populationData -> populationData.getAreaInSquareKM() > 0)
                 .max(Comparator.comparingInt(value -> value.getPopulation() / value.getAreaInSquareKM()))
                 .orElse(null);
