@@ -7,8 +7,6 @@ import de.bcxp.challenge.weather.WeatherMetrics;
 import de.bcxp.challenge.weather.model.WeatherData;
 
 import java.io.FileNotFoundException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

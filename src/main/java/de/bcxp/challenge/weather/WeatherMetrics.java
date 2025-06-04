@@ -1,7 +1,6 @@
 package de.bcxp.challenge.weather;
 
 import de.bcxp.challenge.weather.model.WeatherData;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
