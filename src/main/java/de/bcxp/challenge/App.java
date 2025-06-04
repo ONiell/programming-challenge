@@ -1,10 +1,14 @@
 package de.bcxp.challenge;
 
-import de.bcxp.challenge.weather.CsvImporter;
+import de.bcxp.challenge.cvs.CsvImporter;
+import de.bcxp.challenge.population.PopulationMetrics;
+import de.bcxp.challenge.population.model.PopulationData;
 import de.bcxp.challenge.weather.WeatherMetrics;
 import de.bcxp.challenge.weather.model.WeatherData;
 
 import java.io.FileNotFoundException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,22 +23,34 @@ public final class App {
      */
     public static void main(String... args) {
 
-        final CsvImporter csvImporter = new CsvImporter();
-        final WeatherMetrics weatherMetrics = new WeatherMetrics();
+        final var csvImporter = new CsvImporter();
+        final var weatherMetrics = new WeatherMetrics();
+        final var populationMetrics = new PopulationMetrics();
 
         final List<WeatherData> weatherDataList;
+        final List<PopulationData> populationDataList;
 
         try {
-            weatherDataList = csvImporter.importData("C:\\ProjekteLokal\\Java\\programming-challenge\\src\\main\\resources\\de\\bcxp\\challenge\\weather.csv", WeatherData.class);
+
+            var weatherUrl = App.class.getClassLoader().getResource("de/bcxp/challenge/weather.csv");
+            assert weatherUrl != null;
+            var populationUrl = App.class.getClassLoader().getResource("de/bcxp/challenge/weather.csv");
+            assert populationUrl != null;
+
+            weatherDataList = csvImporter.importData(weatherUrl.getPath(), WeatherData.class);
+            csvImporter.setSeparator(';');
+            populationDataList = csvImporter.importData("F:\\Local_Projects\\Java\\src\\main\\resources\\de\\bcxp\\challenge\\countries.csv", PopulationData.class);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
             return;
         }
 
-        final Integer dayWithSmallestTempSpread = weatherMetrics.getDayWithLowestTemperature(weatherDataList);
+
+        final var dayWithSmallestTempSpread = weatherMetrics.getDayWithLowestTemperature(weatherDataList);
         System.out.printf("Day with smallest temperature spread is Nr.: %s%n", dayWithSmallestTempSpread);
 
-        String countryWithHighestPopulationDensity = "Some country"; // Your population density analysis function call …
+        final var maxPopulationDensityData = populationMetrics.getMaxPopulationDensity(populationDataList);
+        final var countryWithHighestPopulationDensity = maxPopulationDensityData.getCountry();
         System.out.printf("Country with highest population density: %s%n", countryWithHighestPopulationDensity);
     }
 }

@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 public class WeatherMetrics {
 
     public Integer getDayWithLowestTemperature(final List<WeatherData> weatherDataList){
